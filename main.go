@@ -23,7 +23,7 @@ func main() {
 	}
 
 	if token != nil {
-		data, err := json.Marshal(token.Claims)
+		data, err := json.MarshalIndent(token.Claims, "", "    ")
 		if err != nil {
 			panic("error marshalling")
 		}
