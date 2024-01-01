@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -17,8 +18,8 @@ func main() {
 
 	jwtdata := clipboard.Read(clipboard.FmtText)
 
-	token, _ := jwt.Parse(string(jwtdata), nil)
-	if err != nil && err != jwt.ErrTokenUnverifiable {
+	token, err := jwt.Parse(string(jwtdata), nil)
+	if err != nil && !errors.Is(err, jwt.ErrTokenUnverifiable) {
 		panic(err)
 	}
 
